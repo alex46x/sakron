@@ -374,10 +374,16 @@ export default function DecryptedText({
           const isRevealedOrDone =
             revealedIndices.has(index) || (!isAnimating && isDecrypted);
 
+          // Each character sits in a fixed 1ch cell so swapping an "M" (wide)
+          // for an "i" (narrow) during the scramble can't reflow the line.
+          // Spaces get a slightly smaller cell to keep word-spacing natural.
+          const cellWidth = char === " " ? "0.4ch" : "1ch";
+
           return (
             <span
               key={index}
-              className={isRevealedOrDone ? className : encryptedClassName}
+              className={`inline-block text-center ${isRevealedOrDone ? className : encryptedClassName}`}
+              style={{ width: cellWidth }}
             >
               {char}
             </span>
