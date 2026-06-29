@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "./Logo";
 
 const LINKS = ["Home", "About", "Services", "Projects", "Blog", "Contact"];
@@ -8,9 +8,24 @@ const LINKS = ["Home", "About", "Services", "Projects", "Blog", "Contact"];
 export default function Navbar() {
   const [active, setActive] = useState("Home");
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-30">
+    <header
+      className={
+        "fixed inset-x-0 top-0 z-30 transition-all duration-500 ease-out " +
+        (scrolled
+          ? "border-b border-acid/20 bg-ink/80 backdrop-blur-md shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+          : "border-b border-transparent bg-transparent backdrop-blur-0")
+      }
+    >
       <nav className="mx-auto flex max-w-[1536px] items-center justify-between px-6 py-5 md:px-10 md:py-7">
         <a href="#home" className="flex items-center gap-3">
           <Logo />
