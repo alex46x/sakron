@@ -22,19 +22,20 @@ export type Member = {
   }[];
   socials: Social[];
   accent: "acid" | "ember" | "ice" | "rose";
+  portrait?: string; // public path; absent = monogram portrait
 };
 
 export const TEAM: Member[] = [
   {
-    slug: "sakif-ahmed",
-    name: "Sakif Ahmed",
+    slug: "shimul-mondal",
+    name: "Shimul Mondal",
     role: "Founder & Creative Director",
     shortRole: "FOUNDER",
-    initials: "SA",
+    initials: "SM",
     tagline:
       "Designs interfaces that feel inevitable — equal parts brutalist and quiet.",
     bio: [
-      "Sakif started SAKRON to make digital work that respects attention. A decade across product, brand, and motion has led to a studio obsessed with restraint: every line, every glyph, every spacing decision has to earn its place.",
+      "Shimul started SAKRON to make digital work that respects attention. A decade across product, brand, and motion has led to a studio obsessed with restraint: every line, every glyph, every spacing decision has to earn its place.",
       "Off-screen he writes about visual systems, photographs architecture at night, and keeps a growing collection of risograph prints.",
     ],
     skills: [
@@ -70,6 +71,7 @@ export const TEAM: Member[] = [
       { label: "Email", href: "mailto:sakif@sakron.studio" },
     ],
     accent: "acid",
+    portrait: "/team/founder.png",
   },
   {
     slug: "maria-okonkwo",

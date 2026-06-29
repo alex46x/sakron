@@ -3,10 +3,17 @@
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
 
-const LINKS = ["Home", "About", "Services", "Projects", "Blog", "Contact"];
+const LINKS: { label: string; id: string }[] = [
+  { label: "Home", id: "home" },
+  { label: "About", id: "about" },
+  { label: "Services", id: "services" },
+  { label: "Projects", id: "projects" },
+  { label: "Team", id: "team" },
+  { label: "Contact", id: "contact" },
+];
 
 export default function Navbar() {
-  const [active, setActive] = useState("Home");
+  const [active, setActive] = useState("home");
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -16,6 +23,13 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const go = (id: string) => {
+    setOpen(false);
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    setActive(id);
+  };
 
   return (
     <header
@@ -36,25 +50,25 @@ export default function Navbar() {
 
         <ul className="hidden items-center gap-10 lg:flex">
           {LINKS.map((link) => (
-            <li key={link} className="relative">
+            <li key={link.id} className="relative">
               <button
-                onClick={() => setActive(link)}
+                onClick={() => go(link.id)}
                 className={`group relative font-body text-sm tracking-wide transition-colors duration-200 ${
-                  active === link
+                  active === link.id
                     ? "text-acid"
                     : "text-white/85 hover:text-acid"
                 }`}
               >
-                {link}
+                {link.label}
                 <span
                   className={`pointer-events-none absolute -bottom-1.5 left-0 h-[2px] w-full origin-left bg-acid transition-transform duration-300 ease-out ${
-                    active === link
+                    active === link.id
                       ? "scale-x-100"
                       : "scale-x-0 group-hover:scale-x-100"
                   }`}
                 />
               </button>
-              {active === link && (
+              {active === link.id && (
                 <span className="absolute left-1/2 top-[26px] h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-acid shadow-[0_0_10px_#d7ff1e]" />
               )}
             </li>
@@ -96,22 +110,19 @@ export default function Navbar() {
         <ul className="flex flex-col px-6 py-6">
           {LINKS.map((link, idx) => (
             <li
-              key={link}
+              key={link.id}
               className={`border-b border-white/5 transition-all duration-500 last:border-b-0 ${
                 open ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0"
               }`}
               style={{ transitionDelay: open ? `${idx * 60}ms` : "0ms" }}
             >
               <button
-                onClick={() => {
-                  setActive(link);
-                  setOpen(false);
-                }}
+                onClick={() => go(link.id)}
                 className={`flex w-full items-center justify-between py-5 font-body text-2xl tracking-wide transition-colors duration-200 ${
-                  active === link ? "text-acid" : "text-white/85 hover:text-acid"
+                  active === link.id ? "text-acid" : "text-white/85 hover:text-acid"
                 }`}
               >
-                <span>{link}</span>
+                <span>{link.label}</span>
                 <span className="font-body text-xs text-white/30">
                   0{idx + 1}
                 </span>

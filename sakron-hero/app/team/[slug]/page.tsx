@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { ArrowUpRight, ArrowLeft } from "lucide-react";
 import { getMember, TEAM, type Member } from "@/lib/team";
+import DecryptedText from "./DecryptedText";
 
 /**
  * Per-member portfolio page.
@@ -46,6 +47,9 @@ export default function MemberPage({ params }: { params: Params }) {
 }
 
 function MemberHero({ member }: { member: Member }) {
+  // Founder-style hero: portrait with role-letter backdrop, name overlay.
+  if (member.portrait) return <FounderHero member={member} />;
+
   const accentBar = ACCENT_BAR[member.accent];
   return (
     <header className="relative w-full border-b border-white/10 px-6 pt-12 pb-16 md:px-12 md:pt-20 md:pb-24">
@@ -80,6 +84,108 @@ function MemberHero({ member }: { member: Member }) {
         />
       </div>
     </header>
+  );
+}
+
+function FounderHero({ member }: { member: Member }) {
+  // Reference: black canvas, giant centered name behind a centered portrait;
+  // intro line + thin rule sit beneath the photo.
+  return (
+    <header className="relative w-full overflow-hidden bg-ink">
+      {/* Top bar — back link sits above the hero stack */}
+      <div className="relative z-30 flex items-center justify-between px-6 pt-6 md:px-12 md:pt-10">
+        <Link
+          href="/#team"
+          aria-label="Back to team"
+          className="group inline-flex cursor-pointer items-center gap-2 font-body text-xs uppercase tracking-[0.3em] text-white/60 outline-none transition-colors duration-200 hover:text-white focus-visible:text-acid"
+        >
+          <ArrowLeft
+            className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-1"
+            strokeWidth={1.5}
+          />
+          Back to Team
+        </Link>
+      </div>
+
+      {/* Giant name + portrait stack — single centered column */}
+      <div className="relative mx-auto flex w-full max-w-6xl flex-col items-center px-6 pb-14 pt-4 md:pb-20">
+        {/* FOUNDER backdrop band — sits behind the portrait, behind the hairline below */}
+        <p
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-[29%] z-0 -translate-x-1/2 select-none whitespace-nowrap text-center font-heading uppercase leading-[1] tracking-tight text-white text-[clamp(5rem,14vw,12rem)] font-bold"
+        >
+          FOUNDER
+        </p>
+
+        {/* Portrait — centered */}
+        <div className="relative z-10 aspect-[3/4] w-[min(70vw,22rem)] overflow-hidden md:w-[min(36vw,26rem)]">
+          <PortraitImage member={member} />
+        </div>
+
+        {/* Intro paragraph — DecryptedText reveal on scroll into view */}
+        <p className="relative z-20 mt-12 max-w-2xl text-center font-body text-lg leading-relaxed text-white/85 md:mt-16 md:text-2xl">
+          <span className="block">
+            <DecryptedText
+              text="Hi, I am Shimul! A serial entrepreneur and angel investor."
+              animateOn="view"
+              sequential
+              revealDirection="center"
+              speed={45}
+              maxIterations={14}
+              useOriginalCharsOnly
+              className="text-white"
+              encryptedClassName="text-white/60"
+            />
+          </span>
+          <span className="block">
+            <DecryptedText
+              text="I seek new and innovative ideas."
+              animateOn="view"
+              sequential
+              revealDirection="center"
+              speed={45}
+              maxIterations={14}
+              useOriginalCharsOnly
+              className="text-white"
+              encryptedClassName="text-white/60"
+            />
+          </span>
+        </p>
+
+        {/* Testimonials link — accent sentence (no italic) */}
+        <p className="relative z-20 mt-6 text-center font-body text-base text-white/70 md:text-lg">
+          See few testimonials from our{" "}
+          <span className="font-semibold text-acid underline-offset-4 hover:underline">
+            Happy Startups
+          </span>
+        </p>
+
+        {/* Hairline rule + scroll pill */}
+        <div className="relative z-20 mt-10 flex w-full max-w-3xl flex-col items-center md:mt-12">
+          <div
+            aria-hidden="true"
+            className={`h-px w-full bg-gradient-to-r ${ACCENT_BAR[member.accent]} opacity-60`}
+          />
+          <span
+            aria-hidden="true"
+            className="mt-8 inline-block h-10 w-6 rounded-full border border-white/30"
+          />
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function PortraitImage({ member }: { member: Member }) {
+  if (!member.portrait) return null;
+  // eslint-disable-next-line @next/next/no-img-element
+  return (
+    <img
+      src={member.portrait}
+      alt=""
+      className="h-full w-full object-cover"
+      loading="eager"
+    />
   );
 }
 

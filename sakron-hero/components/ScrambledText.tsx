@@ -31,7 +31,7 @@ const ScrambledText: React.FC<ScrambledTextProps> = ({
   useEffect(() => {
     if (!rootRef.current) return;
 
-    const target = rootRef.current.querySelector("p");
+    const target = rootRef.current;
     if (!target) return;
 
     const split = SplitText.create(target, {
@@ -78,7 +78,7 @@ const ScrambledText: React.FC<ScrambledTextProps> = ({
 
   return (
     <div ref={rootRef} className={className} style={style}>
-      <p>{children}</p>
+      {children}
     </div>
   );
 };
