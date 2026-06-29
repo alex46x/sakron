@@ -18,6 +18,35 @@ body {
   scroll-behavior: smooth;
 }
 
+/* Premium ::selection — acid highlight everywhere on the site.
+   Uses our brand token (#D7FF1E) as background, ink as foreground,
+   so any selected text — headings, body, nav, cards — reads as premium. */
+::selection {
+  background-color: #d7ff1e;
+  color: #0a0a0a;
+}
+
+::-moz-selection {
+  background-color: #d7ff1e;
+  color: #0a0a0a;
+}
+
+/* Liquid-glass surface utility (matches the ui_ux_pro_max Liquid Glass
+   style tokens). Pair with a hairline border for a premium depth cue. */
+.glass {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
 .tracking-wide-2 {
   letter-spacing: 0.32em;
 }

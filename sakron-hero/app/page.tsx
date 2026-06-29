@@ -2,6 +2,7 @@ import CursorCrosshair from "@/components/CursorCrosshair";
 import Navbar from "@/components/Navbar";
 import SideNavDots from "@/components/SideNavDots";
 import SectionShell from "@/components/SectionShell";
+import TeamSection from "@/components/TeamSection";
 import LightPillar from "@/components/LightPillar";
 import ScrambledText from "@/components/ScrambledText";
 import HeroScrollEffect from "@/components/HeroScrollEffect";
@@ -100,12 +101,14 @@ export default function Home() {
           </p>
         </div>
       </section>
-      <SectionShell id="services" eyebrow="02 — Services" title="WHAT WE DO" />
-      <SectionShell id="projects" eyebrow="03 — Projects" title="SELECTED WORK" />
-      <SectionShell id="contact" eyebrow="04 — Contact" title="GET IN TOUCH" />
+      <TeamSection />
+
+      <SectionShell id="services" eyebrow="03 — Services" title="WHAT WE DO" />
+      <SectionShell id="projects" eyebrow="04 — Projects" title="SELECTED WORK" />
+      <SectionShell id="contact" eyebrow="05 — Contact" title="GET IN TOUCH" />
 
       <SideNavDots
-        sections={["home", "about", "services", "projects", "contact"]}
+        sections={["home", "about", "team", "services", "projects", "contact"]}
       />
     </>
   );
