@@ -1,7 +1,7 @@
-import InteractiveBackground from "@/components/InteractiveBackground";
 import CursorCrosshair from "@/components/CursorCrosshair";
 import Navbar from "@/components/Navbar";
 import SideNavDots from "@/components/SideNavDots";
+import LightPillar from "@/components/LightPillar";
 import { ArrowUpRight } from "lucide-react";
 
 export default function Home() {
@@ -17,7 +17,22 @@ export default function Home() {
             "radial-gradient(ellipse 700px 500px at 8% 95%, rgba(180,255,40,0.22), transparent 60%), radial-gradient(ellipse 600px 600px at 100% 60%, rgba(120,200,40,0.10), transparent 60%)",
         }}
       />
-      <InteractiveBackground />
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <LightPillar
+          topColor="#84CC16"
+          bottomColor="#EAB308"
+          intensity={1.1}
+          rotationSpeed={1.6}
+          glowAmount={0.002}
+          pillarWidth={2}
+          pillarHeight={0.4}
+          noiseIntensity={0}
+          pillarRotation={25}
+          interactive={false}
+          mixBlendMode="screen"
+          quality="medium"
+        />
+      </div>
       <CursorCrosshair />
       <Navbar />
       <SideNavDots />
