@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import SideNavDots from "@/components/SideNavDots";
 import SectionShell from "@/components/SectionShell";
 import TeamSection from "@/components/TeamSection";
+import ContactSection from "@/components/ContactSection";
 import LightPillar from "@/components/LightPillar";
 import ScrambledText from "@/components/ScrambledText";
 import HeroScrollEffect from "@/components/HeroScrollEffect";
@@ -105,7 +106,7 @@ export default function Home() {
 
       <SectionShell id="services" eyebrow="03 — Services" title="WHAT WE DO" />
       <SectionShell id="projects" eyebrow="04 — Projects" title="SELECTED WORK" />
-      <SectionShell id="contact" eyebrow="05 — Contact" title="GET IN TOUCH" />
+      <ContactSection />
 
       <SideNavDots
         sections={["home", "about", "team", "services", "projects", "contact"]}

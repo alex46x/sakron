@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Anton, Inter } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 const anton = Anton({
   subsets: ["latin"],
@@ -16,7 +17,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "SAKRON — Building Digital Experiences",
+  title: "SAKRON",
   description: "Design. Develop. Elevate.",
 };
 
@@ -27,7 +28,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${anton.variable} ${inter.variable}`}>
-      <body className="font-body bg-ink">{children}</body>
+      <body className="font-body bg-ink text-white antialiased">
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }
